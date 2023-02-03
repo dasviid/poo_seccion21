@@ -6,15 +6,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ClienteListRepositorio implements CrudRepositorio,
-        OrdenableRepositorio,PaginableRepositorio{
+public class ClienteListRepositorio implements OrdenablePagiableCrudRepositorio {
 
     private List<Cliente> dataSource;
 
     public ClienteListRepositorio() {
         this.dataSource = new ArrayList<>();
     }
-
 
 
     @Override
@@ -25,8 +23,8 @@ public class ClienteListRepositorio implements CrudRepositorio,
     @Override
     public Cliente porId(Integer id) {
         Cliente resultado = null;
-        for (Cliente cli: dataSource){
-            if (cli.getId() != null && cli.getId().equals(id)){
+        for (Cliente cli : dataSource) {
+            if (cli.getId() != null && cli.getId().equals(id)) {
                 resultado = cli;
                 break;
             }
@@ -62,33 +60,35 @@ public class ClienteListRepositorio implements CrudRepositorio,
             @Override
             public int compare(Cliente a, Cliente b) {
                 int resultado = 0;
-                if (direccio == Direccion.ASC){
-                resultado = this.ordenar(a,b);
+                if (direccio == Direccion.ASC) {
+                    resultado = ordenar(a, b, campo);
                 }
-                if (direccio == Direccion.DESC){
-                 resultado= this.ordenar(b,a);
-                }
-                return resultado;
-            }
-            private int ordenar(Cliente a,Cliente b){
-                int resultado = 0;
-                switch (campo){
-                    case "id" ->
-                            resultado = a.getId().compareTo(b.getId());
-                    case "nombre" ->
-                            resultado = a.getNombre().compareTo(b.getNombre());
-                    case "apellido" ->
-                            resultado = a.getApellido().compareTo(b.getApellido());
+                if (direccio == Direccion.DESC) {
+                    resultado = ordenar(b, a, campo);
                 }
                 return resultado;
             }
-
         });
         return listaOrdenada;
     }
 
     @Override
     public List<Cliente> listar(int desde, int hasta) {
-        return dataSource.subList(desde,hasta);
+        return dataSource.subList(desde, hasta);
+    }
+
+    private int ordenar(Cliente a, Cliente b, String campo) {
+        int resultado = 0;
+        switch (campo) {
+            case "id" -> resultado = a.getId().compareTo(b.getId());
+            case "nombre" -> resultado = a.getNombre().compareTo(b.getNombre());
+            case "apellido" -> resultado = a.getApellido().compareTo(b.getApellido());
+        }
+        return resultado;
+    }
+
+    @Override
+    public int total() {
+        return dataSource.size();
     }
 }

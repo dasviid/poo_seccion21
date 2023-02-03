@@ -3,7 +3,7 @@ package david.barre.poointerfaces.modelo;
 import java.util.Objects;
 
 public class Cliente {
-    private  Integer id;
+    private Integer id;
     private String nombre;
     private String apellido;
     private static int ultimoId;
@@ -45,9 +45,9 @@ public class Cliente {
     @Override
     public String toString() {
         return
-                "id: " + id + "\n"+
-                "nombre: " + nombre + ' ' +
-                 apellido ;
+                "id: " + id + "\n" +
+                        "nombre: " + nombre + ' ' +
+                        apellido;
     }
 
     @Override
