@@ -1,6 +1,7 @@
 package david.barre.genericos;
 
 import david.barre.poointerfaces.modelo.Cliente;
+import david.barre.poointerfaces.modelo.ClientePremium;
 
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.ArrayList;
@@ -30,9 +31,20 @@ public class EjemploGenericos {
 
         List<String > nombres = fromArrayToList(new String[]{"Andres","Pepe","Luci"},enterosArreglo);
         nombres.forEach(System.out::println);
+
+        List<ClientePremium> clientePremiumsList = fromArrayToList(
+                new ClientePremium[]{
+                        new ClientePremium("Paco","Fernandez")
+                });
     }
 
     public static <T>List<T> fromArrayToList(T[] c){
+        return Arrays.asList(c);
+    }
+    public static <T extends Number>List<T> fromArrayToList(T[] c){
+        return Arrays.asList(c);
+    }
+    public static <T extends Cliente & Comparable<T>>List<T> fromArrayToList(T[] c){
         return Arrays.asList(c);
     }
 
