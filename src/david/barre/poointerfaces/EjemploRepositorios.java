@@ -2,13 +2,14 @@ package david.barre.poointerfaces;
 
 import david.barre.poointerfaces.modelo.*;
 import david.barre.poointerfaces.repositorios.*;
+import david.barre.poointerfaces.repositorios.lista.ClienteListRepositorio;
 
 import java.util.List;
 
 public class EjemploRepositorios {
     public static void main(String[] args) {
 
-        OrdenablePagiableCrudRepositorio repositorio = new ClienteListRepositorio();
+        OrdenablePagiableCrudRepositorio<Cliente> repositorio = new ClienteListRepositorio();
         repositorio.crear(new Cliente("Jano", "Perez"));
         repositorio.crear(new Cliente("Bea", "Rodriguez"));
         repositorio.crear(new Cliente("Luci", "Martinez"));
