@@ -1,8 +1,8 @@
 package david.barre.genericclass;
 
 public class Animal {
-    private  String nombre;
-    private  String tipo;
+    private String nombre;
+    private String tipo;
 
     public Animal(String nombre, String tipo) {
         this.nombre = nombre;

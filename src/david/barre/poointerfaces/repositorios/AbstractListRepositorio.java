@@ -2,6 +2,7 @@ package david.barre.poointerfaces.repositorios;
 
 import david.barre.poointerfaces.modelo.BaseEntity;
 import david.barre.poointerfaces.modelo.Cliente;
+import david.barre.poointerfaces.repositorios.excepciones.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,9 @@ public abstract class AbstractListRepositorio<T extends BaseEntity> implements O
 
     protected List<T> dataSource;
 
-    public AbstractListRepositorio() {this.dataSource = new ArrayList<>();}
+    public AbstractListRepositorio() {
+        this.dataSource = new ArrayList<>();
+    }
 
 
     @Override
@@ -19,8 +22,11 @@ public abstract class AbstractListRepositorio<T extends BaseEntity> implements O
         return this.dataSource;
     }
 
-   @Override
-    public T porId(Integer id) {
+    @Override
+    public T porId(Integer id) throws LecturaAccesoDatoExcepcion {
+        if (id == null || id <= 0) {
+            throw new LecturaAccesoDatoExcepcion("Id invalido debe ser > 0 ");
+        }
         T resultado = null;
         for (T cli : dataSource) {
             if (cli.getId() != null && cli.getId().equals(id)) {
@@ -28,18 +34,28 @@ public abstract class AbstractListRepositorio<T extends BaseEntity> implements O
                 break;
             }
         }
+        if (resultado == null){
+            throw new LecturaAccesoDatoExcepcion("No existe el registro con el id: " + id);
+        }
         return resultado;
     }
 
     @Override
-    public void crear(T t) {
+    public void crear(T t) throws EscrituraAccesoDatoExcepcion {
+        if (t == null){
+                throw  new EscrituraAccesoDatoExcepcion("Error al ingresar un objeto nulo");
+        }
+        if (this.dataSource.contains(t)){
+            throw new RegisroDuplicadoAccesoDatoExcepcion("Error el objeto con id "
+            + t.getId() + " existe en el repositorio");
+        }
         this.dataSource.add(t);
 
     }
 
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(Integer id) throws LecturaAccesoDatoExcepcion {
         this.dataSource.remove(this.porId(id));
 
     }

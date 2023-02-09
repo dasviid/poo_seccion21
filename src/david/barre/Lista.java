@@ -6,16 +6,16 @@ public class Lista<T> {
     private Object[] objetos;
     private int i;
 
-    public Lista(){
+    public Lista() {
         this.i = 0;
         this.objetos = new Object[3];
     }
 
-    public void add(T elemento){
-        if (this.i  == this.objetos.length){
+    public void add(T elemento) {
+        if (this.i == this.objetos.length) {
             Object[] aux = new Object[this.objetos.length + 3];
 
-            for (int i = 0; i < this.objetos.length; i++){
+            for (int i = 0; i < this.objetos.length; i++) {
                 aux[i] = this.objetos[i];
             }
             this.objetos = aux;

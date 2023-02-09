@@ -3,6 +3,7 @@ package david.barre.poointerfaces.repositorios.lista;
 import david.barre.poointerfaces.modelo.Cliente;
 import david.barre.poointerfaces.repositorios.AbstractListRepositorio;
 import david.barre.poointerfaces.repositorios.Direccion;
+import david.barre.poointerfaces.repositorios.excepciones.LecturaAccesoDatoExcepcion;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,8 +11,8 @@ import java.util.List;
 
 public class ClienteListRepositorio extends AbstractListRepositorio<Cliente> {
 
-@Override
-    public void editar(Cliente cliente) {
+    @Override
+    public void editar(Cliente cliente) throws LecturaAccesoDatoExcepcion {
         Cliente c = this.porId(cliente.getId());
         c.setApellido(cliente.getApellido());
         c.setNombre(cliente.getNombre());

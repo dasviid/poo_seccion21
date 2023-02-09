@@ -3,6 +3,7 @@ package david.barre.poointerfaces.repositorios.lista;
 import david.barre.poointerfaces.modelo.Producto;
 import david.barre.poointerfaces.repositorios.AbstractListRepositorio;
 import david.barre.poointerfaces.repositorios.Direccion;
+import david.barre.poointerfaces.repositorios.excepciones.LecturaAccesoDatoExcepcion;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class ProductoListRepositorio extends AbstractListRepositorio<Producto> {
     @Override
-    public void editar(Producto producto) {
+    public void editar(Producto producto) throws LecturaAccesoDatoExcepcion {
         Producto p = porId(producto.getId());
         p.setDescripcion(producto.getDescripcion());
         p.setPrecio(producto.getPrecio());
@@ -34,6 +35,7 @@ public class ProductoListRepositorio extends AbstractListRepositorio<Producto> {
         });
         return listaOrdenada;
     }
+
     private int ordenar(Producto a, Producto b, String campo) {
         int resultado = 0;
         switch (campo) {
